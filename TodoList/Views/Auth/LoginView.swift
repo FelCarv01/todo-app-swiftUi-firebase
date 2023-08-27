@@ -9,8 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @State var email = ""
-    @State var password = ""
+    @StateObject var viewModel = LoginViewViewModel()
     
     var body: some View {
         NavigationView {
@@ -18,22 +17,29 @@ struct LoginView: View {
                 // Header
                 HeaderView(title: "To Do List", subTitle: "Deixe tudo pronto!", angle: 15, backgroundColor: .blue)
                 
-                // Login Form
+              
                 
                 Form {
-                    TextField("Email", text: $email)
+                    if !viewModel.errorMessage.isEmpty {
+                        Text(viewModel.errorMessage)
+                            .foregroundColor(Color.red)
+                    }
+                    
+                    TextField("Email", text: $viewModel.email)
                         .textFieldStyle(DefaultTextFieldStyle())
                         .autocorrectionDisabled()
                         .autocapitalization(.none)
                         .padding(.vertical, 8)
 
-                    SecureField("Senha", text: $password)
+                    SecureField("Senha", text: $viewModel.password)
                         .textFieldStyle(DefaultTextFieldStyle())
                         .padding(.vertical, 8)
                         
-                    TLButton(title: "Entrar", backgroundColor: .blue) {
-                        // to login
-                    }.padding()
+                    TLButton(title: "Entrar", backgroundColor: .blue)
+                    {
+                        viewModel.login()
+                    }
+                    .padding()
                 }
                 .offset(y: -50)
                 
@@ -53,10 +59,10 @@ struct LoginView: View {
     }
 }
 
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView()
-    }
-}
+//struct LoginView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LoginView()
+//    }
+//}
 
 
