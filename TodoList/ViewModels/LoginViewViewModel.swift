@@ -30,8 +30,8 @@ class LoginViewViewModel: ObservableObject {
             errorMessage = "Preencha todos os campos"
             return false
         }
-        let regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"
-        guard email.contains(regex) else {
+       
+        guard email.isValidEmail else {
             errorMessage = "Email Inválido"
             return false
         }
