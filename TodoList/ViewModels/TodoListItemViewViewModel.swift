@@ -8,5 +8,10 @@
 import Foundation
 
 class TodoListItemViewViewModel: ObservableObject {
+    
     init() {}
+    
+    func isDoneToggle(item: TodoModel) {
+
+    }
 }
